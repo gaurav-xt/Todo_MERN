@@ -1,15 +1,20 @@
-import express from 'express'
+import express from "express";
 import connectDb from "./config/db.js";
-import dotenv from 'dotenv'
+import dotenv from "dotenv";
+import router from "./routes/taskRoutes.js";
 
 const app = express();
-dotenv.config()
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT , ()=>{
-    console.log(`Server listing at ${PORT}`)
-})
+//middleware
+app.use(express.json()); // to parse JSON body
 
-connectDb()
+app.use("/users", userRoutes); // register routes
 
+app.listen(PORT, () => {
+  console.log(`Server listing at ${PORT}`);
+});
+
+connectDb();
